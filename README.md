@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <img src="https://drivendata-public-assets.s3.amazonaws.com/airportconfig-tile.jpg" alt="Logo" width="800" height="330">
+  <img src="images/plane.jpg" alt="Logo" width="800" height="360">
 
   <h3 align="center"> NASA Run-way competition: Predict Reconfigurations at US Airports </h3>
 
@@ -42,7 +42,7 @@ More precisely, participants in this challenge were given the task to build an A
 
 A graphical representation of the desired output by the model can be observed below as a grid crossing airports, configurations and lookahead periods:
 
-
+<img src="images/predictions_format.JPG" alt="Logo" width="450" height="360">
 
 The metric with which the above forecasts are evaluated is with the aggregated logloss across airports and lookahead periods.
 
@@ -50,13 +50,20 @@ The metric with which the above forecasts are evaluated is with the aggregated l
 <!-- APPROACH -->
 ## Approach of our solution
 
-XXX
+With this context in mind, our solution has been to follow a 4-step approach as depicted in the exhibit below:
 
+<img src="images/approach.JPG" alt="Logo" width="700" height="260">
 
+As one can note, our approach relies on building one model for every combination of airport-lookahead period to predict the likelihood of each possible configuration in the prescribed airport and lookahead horizon.
 
 <!-- RESULTS -->
 ## Results obtained
-XXX
+
+The results obtained can be split in three different metrics depending on the time period where our models have been evaluated. The open leaderboard is where participants were able to submit the predictions during the development stage, private leaderboard performance was a held out set used to test whether the functionalities in the runtime environment worked correctly, and finally, the held out validation set of May 2022 is where the final ranking was decided.
+
+- Open leaderboard performance: 0.0615 (Rank 5)
+- Private leaderboard performance: 0.1043 (Rank 3)
+- Held out validation set performance: XXX (Rank XXX)
 
 
 <!-- REPOSITORY -->
@@ -80,6 +87,7 @@ NASA-runways
 └───sumbission
 │   │   main.py
 │   └───src
+│   └───models
 └───data
     │   katl
     │   kclt
@@ -118,7 +126,7 @@ $ python3 main.py data_path models_path build_master
 And in order to run the submission *main.py* script in DrivenData's runtime:
 
 ```python 
-main(prediction_time: datetime)
+main(prediction_time)
 ```
 
 <!-- ACKNOWLEDGMENTS -->
