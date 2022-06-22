@@ -33,7 +33,7 @@
 <!-- CONTEXT -->
 ## Context of the challenge
 
-<div style="text-align: justify">
+<div align="justify">
 
 Every year millions of flights arrive and depart from US airports. Intelligent scheduling and system control is a very pressing problem. Knowing in advance or accurately forecasting which runways will be available for departure and arrival is one of the key inputs to arrange optimized schedules. With the surge of Big Data and Advanced Analytics techniques most of these forecasts are based on Machine Learning methods.
 
@@ -43,9 +43,12 @@ More precisely, participants in this challenge were given the task to build an A
 
 A graphical representation of the desired output by the model can be observed below as a grid crossing airports, configurations and lookahead periods:
 
+
 <img src="images/predictions_format.JPG" alt="Logo" width="450" height="360">
 
 The metric with which the above forecasts are evaluated is with the aggregated logloss across airports and lookahead periods.
+  
+
 
 
 <!-- APPROACH -->
@@ -68,7 +71,7 @@ The results obtained can be split in three different metrics depending on the ti
 
 As one can note, based on the evaluation metric with which the final leaderboard was determined, ours was the winning solution. Below one can see the top 4 teams:
 
-<img src="images/ranking.JPG" alt="Logo" width="700" height="260">
+<img src="images/ranking.JPG" alt="Logo" width="430" height="160">
 
 <!-- REPOSITORY -->
 ## Repository structure
@@ -137,5 +140,5 @@ main(prediction_time)
 ## Acknowledgments
 
 As a closing remark, we would like to place on record our deepest sense of gratitude towards the NASA and DrivenData teams for organizing and hosting this competition respectively. Their continuous support and encouragement have been invaluable to develop the final product described earlier.
-
+  
 </div>
