@@ -71,7 +71,7 @@ The results obtained can be split in three different metrics depending on the ti
 
 As one can note, based on the evaluation metric with which the final leaderboard was determined, ours was the winning solution. Below one can see the top 4 teams:
 
-<img src="images/ranking.JPG" alt="Logo" width="430" height="160">
+<img src="images/ranking.JPG" alt="Logo" width="430" height="140">
 
 <!-- REPOSITORY -->
 ## Repository structure
@@ -124,7 +124,7 @@ In order to execute the routines mentioned above two sets of requirements are ne
 
 ### Execution
 
-Once the previous requirements are met, the execution of the above pipeline can be executed as seen below once the user specifies the data path where the raw data lives, the models path (where the models will be stored after training) and a binary flag indicating whether we want the master table to be created from scratch or read.
+Once the previous requirements are met, the execution of the data and modelling pipeline can be triggered as displayed in the snippet below. The user specifies the data path (where the raw data lives in csv files with one directory per airport - **the binaries need to be decompressed into csv manually before running the main script**), the models path (where the models will be stored after training) and a binary flag (indicating whether we want the master table to be created from scratch or read).
 
 ```python 
 $ python3 main.py data_path models_path build_master
@@ -135,14 +135,26 @@ So a sample execution could be accomplished by running:
 ```python 
 $ python3 main.py "C:/Users/.../data_folder/" "C:/Users/.../models_folder/" True
 ```
+  
+Executing the above will trigger the following sequence of 10 steps automatically:
+  1. Load raw data and store it in a dictionary that maps airport + key -> DataFrame
+  2. Create cross join of all the dates between start_time and end_time at a 15min frequency (master table at the airport-timestamp level)
+  3. Extract features from past periods for the selected data blocks and append them to the master table
+  4. Adjust master table in order not to have errors in edge cases in prediction time
+  5. Add targets to the master table - future information indicating the configuration at each lookahead period
+  6. Store the master table as a parquet file in the *data_path* specified (130Mb)
+  7. Define the train / test split based on the *open_submission* file in the *data_path*
+  8. Choose the appropriate modelling parameters based on a grid for each airport-lookahead combination
+  9. Build a Catboost classifier model for each airport and lookahead period with the chosen parameters (a total of 120)
+  10. Save the models in the *models_path* specified
 
-This process is memory and time intensive - requires 31Gb of RAM in CPU at its peak and spans 4h for data processing. The modelling process that reproduces the submitted models was executed enabling the GPU option in code/main.py in line 79:
+This process is memory and time intensive. The data pipeline (loading the raw data and creating the master table) requires 31Gb in RAM at its peak and a total runtime of 4h while the modelling process that reproduces the submitted models was executed enabling the GPU option in code/main.py in line 79:
   
 ```python 
 task_type='GPU'
-```
+``` 
 
-And in order to run the submission *main.py* script in DrivenData's [runtime environment](https://github.com/drivendataorg/nasa-airport-config-runtime):
+And in order to run the submission *main.py* script in DrivenData's [runtime environment](https://github.com/drivendataorg/nasa-airport-config-runtime) with a predefined *prediction_time* as it was done in the evaluation phase of the competition:
 
 ```python 
 main(prediction_time)
