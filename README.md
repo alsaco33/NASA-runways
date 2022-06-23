@@ -120,7 +120,7 @@ Having an understanding of the approach, results and repository structure, we wi
 In order to execute the routines mentioned above two sets of requirements are needed:
 
 - To execute *main.py* in /submission: Replicate the docker image of the [runtime DrivenData repository](https://github.com/drivendataorg/nasa-airport-config-runtime)
-- To execute *main.py* in /code: Use a version of python 3 and have the packages from [*requirements.txt*](https://github.com/alsaco33/NASA-runways/requirements.txt) installed
+- To execute *main.py* in /code: Use a version of python 3 and have the packages from [*requirements.txt*](https://github.com/alsaco33/NASA-runways/blob/main/requirements.txt) installed
 
 ### Execution
 
@@ -128,6 +128,18 @@ Once the previous requirements are met, the execution of the above pipeline can 
 
 ```python 
 $ python3 main.py data_path models_path build_master
+```
+  
+So a sample execution could be accomplished by running:
+  
+```python 
+$ python3 main.py "C:/Users/.../data_folder/" "C:/Users/.../models_folder/" True
+```
+
+This process is memory and time intensive - requires 31Gb of RAM in CPU at its peak and spans 4h for data processing. The modelling process that reproduces the submitted models was executed enabling the GPU option in code/main.py in line 79:
+  
+```python 
+task_type='GPU'
 ```
 
 And in order to run the submission *main.py* script in DrivenData's [runtime environment](https://github.com/drivendataorg/nasa-airport-config-runtime):
